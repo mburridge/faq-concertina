@@ -1,9 +1,9 @@
 <?php
-/* 
+/*
 Plugin Name: FAQ Concertina
 Plugin URI: http://www.zyriab.co.uk/faqconc/
 Description: FAQs displayed as an expandable concertina using shortcode [faq-concertina]. FAQs can be categorised and displayed using shortcode [faq-concertina category='category-slug']. FAQs can also be ordered and the appearance customised.
-Version: 1.4.3
+Version: 1.4.5
 Author: Michael Burridge, Zyriab Ltd.
 Author URI: http://www.zyriab.co.uk/
 Text Domain: faq-concertina
@@ -13,7 +13,7 @@ License: GPLv2
 Copyright 2016  Michael Burridge, Zyriab Ltd.  (email : faqconc@zyriab.co.uk)
 
     This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as 
+    it under the terms of the GNU General Public License, version 2, as
     published by the Free Software Foundation.
 
     This program is distributed in the hope that it will be useful,
@@ -23,7 +23,7 @@ Copyright 2016  Michael Burridge, Zyriab Ltd.  (email : faqconc@zyriab.co.uk)
 
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA 
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 defined( 'ABSPATH' ) or die( "Permission denied!" );
 
@@ -71,7 +71,8 @@ function faqconc_create_post_type() {
 		'public' 				=> true,
 		'show_in_nav_menus' 	=> false,
 		'menu_icon' 			=> 'dashicons-list-view',
-		'supports' 				=> array( 'title', 'editor', 'page-attributes' )
+		'supports' 				=> array( 'title', 'editor', 'page-attributes' ),
+		'show_in_rest' 			=> true,
 	);
 
 	register_post_type( 'faqconc', $args );
@@ -88,7 +89,7 @@ function faqconc_create_taxonomies() {
 		  'singular_name' 			=> __( 'Category', 'taxonomy singular name', 'faq-concertina' ),
 		  'search_items' 			=> __( 'Search Categories', 'faq-concertina' ),
 		  'all_items' 				=> __( 'All Categories', 'faq-concertina' ),
-		  'edit_item'  				=> __( 'Edit Category', 'faq-concertina' ), 
+		  'edit_item'  				=> __( 'Edit Category', 'faq-concertina' ),
 		  'update_item' 			=> __( 'Update Category', 'faq-concertina' ),
 		  'add_new_item' 			=> __( 'Add New Category', 'faq-concertina' ),
 		  'new_item_name' 			=> __( 'New Category', 'faq-concertina' ),
@@ -103,7 +104,8 @@ function faqconc_create_taxonomies() {
 		  'hierarchical' 		=> false,
 		  'labels' 				=> $labels,
 		  'rewrite' 			=> true,
-		  'show_admin_column'	=> true
+		  'show_admin_column'	=> true,
+		  'show_in_rest' 		=> true,
 	);
 
 	register_taxonomy( 'faqconc_cat', 'faqconc', $args );
@@ -113,24 +115,24 @@ add_action( 'init', 'faqconc_create_taxonomies', 0 );
 
 
 /*==========================================
-  2 - DASHBOARD PAGES 
+  2 - DASHBOARD PAGES
 ============================================*/
 
 /*-----------------------------------------
   2.1 - THE ADD NEW AND EDIT PAGE
 -------------------------------------------*/
 
-// Change prompt in title field 
+// Change prompt in title field
 function faqconc_change_default_title( $title ){
 
      $screen = get_current_screen();
- 
+
      if  ( $screen->post_type == 'faqconc' ) {
           return __( 'Enter question here', 'faq-concertina' );
      }
 
 }
-add_filter( 'enter_title_here', 'faqconc_change_default_title' ); 
+add_filter( 'enter_title_here', 'faqconc_change_default_title' );
 
 // Add meta boxes: Category, Order and Help
 function faqconc_meta_boxes(){
@@ -140,7 +142,7 @@ function faqconc_meta_boxes(){
 	add_meta_box( 'faq_help', 			 __( 'Help', 	 'faq-concertina' ), 	 'faqconc_help', 			 'faqconc',	'side', 	'high' ); // meta box for help (calls faqconc_help below)
 
 }
-add_action( 'add_meta_boxes_faqconc', 'faqconc_meta_boxes' ); 
+add_action( 'add_meta_boxes_faqconc', 'faqconc_meta_boxes' );
 
 // Callback function for the help metabox
 function faqconc_help() {
@@ -173,16 +175,16 @@ function faqconc_add_order_column( $columns ) {
     	$new[$key] = $title;
     }
 
-    return $new; 
+    return $new;
 
 }
 add_filter( 'manage_faqconc_posts_columns', 'faqconc_add_order_column' );
 
 // Make Order column sortable
 function faqconc_order_column_sortable( $columns ) {
-	
+
 	$columns['order'] = 'menu_order';
- 
+
     return $columns;
 
 }
@@ -202,7 +204,7 @@ add_action( 'manage_faqconc_posts_custom_column', 'faqconc_order_column_content'
 function faqconc_category_column_sortable( $columns ) {
 
     $columns['taxonomy-faqconc_cat'] = 'taxonomy-faqconc_cat';
- 
+
     return $columns;
 
 }
@@ -247,7 +249,7 @@ add_action( 'manage_faqconc_posts_custom_column', 'faqconc_faq_table_column_widt
   2.3 - THE SETTINGS PAGE
 -------------------------------------------*/
 
-// Add the settings page  
+// Add the settings page
 function faqconc_settings_page() {
 
     add_submenu_page( 'edit.php?post_type=faqconc', __( 'FAQ Concertina Settings', 'faq-concertina' ), __( 'Settings', 'faq-concertina' ), 'edit_posts', 'faqconc_settings_page', 'faqconc_settings' );
@@ -280,35 +282,35 @@ function faqconc_register_settings() {
 
 	add_settings_field( 'faqconc_speed', 			__( 'Speed', 				'faq-concertina' ), 'faqconc_speed', 			'faqconc_settings_page', 'faqconc_animation_section', 	array( 'label_for' => 'Speed') );
 	add_settings_field( 'faqconc_hide_others', 		__( 'Hide Others', 			'faq-concertina' ), 'faqconc_hide_others', 		'faqconc_settings_page', 'faqconc_animation_section', 	array( 'label_for' => 'Hide Others') );
-	add_settings_field( 'faqconc_width', 			__( 'Width',           		'faq-concertina' ), 'faqconc_width', 			'faqconc_settings_page', 'faqconc_appearance_section', 	array( 'label_for' => 'Width') );	
-	add_settings_field( 'faqconc_width_override', 	__( 'Override Width',  		'faq-concertina' ), 'faqconc_width_override', 	'faqconc_settings_page', 'faqconc_appearance_section', 	array( 'label_for' => 'Override Width') );	
+	add_settings_field( 'faqconc_width', 			__( 'Width',           		'faq-concertina' ), 'faqconc_width', 			'faqconc_settings_page', 'faqconc_appearance_section', 	array( 'label_for' => 'Width') );
+	add_settings_field( 'faqconc_width_override', 	__( 'Override Width',  		'faq-concertina' ), 'faqconc_width_override', 	'faqconc_settings_page', 'faqconc_appearance_section', 	array( 'label_for' => 'Override Width') );
 	add_settings_field( 'faqconc_colours', 			__( 'Colour Scheme',   		'faq-concertina' ), 'faqconc_colours', 			'faqconc_settings_page', 'faqconc_appearance_section', 	array( 'label_for' => 'Colour Scheme') );
 	add_settings_field( 'faqconc_invert_colours', 	__( 'Negative',        		'faq-concertina' ), 'faqconc_invert_colours', 	'faqconc_settings_page', 'faqconc_appearance_section', 	array( 'label_for' => 'Negative') );
 	add_settings_field( 'faqconc_corners', 			__( 'Corners',				'faq-concertina' ), 'faqconc_corners', 			'faqconc_settings_page', 'faqconc_appearance_section', 	array( 'label_for' => 'Corners') );
 	add_settings_field( 'faqconc_indicators', 		__( 'Show/Hide Indicators', 'faq-concertina' ), 'faqconc_indicators', 		'faqconc_settings_page', 'faqconc_appearance_section', 	array( 'label_for' => 'Show/Hide Indicators') );
 	add_settings_field( 'faqconc_disable_styles', 	__( 'Disable',         		'faq-concertina' ), 'faqconc_disable_styles', 	'faqconc_settings_page', 'faqconc_appearance_section', 	array( 'label_for' => 'Disable Styles') );
-	add_settings_field( 'faqconc_order', 			__( 'Order',         		'faq-concertina' ), 'faqconc_order', 			'faqconc_settings_page', 'faqconc_order_section', 		array( 'label_for' => 'Order') );	
+	add_settings_field( 'faqconc_order', 			__( 'Order',         		'faq-concertina' ), 'faqconc_order', 			'faqconc_settings_page', 'faqconc_order_section', 		array( 'label_for' => 'Order') );
 	add_settings_field( 'faqconc_reverse', 			__( 'Reverse',         		'faq-concertina' ), 'faqconc_reverse', 			'faqconc_settings_page', 'faqconc_order_section', 		array( 'label_for' => 'Reverse') );
 
 	register_setting( 'faqconc_settings', 'faqconc_animation_speed' );
 	register_setting( 'faqconc_settings', 'faqconc_hide_others' );
 	register_setting( 'faqconc_settings', 'faqconc_width', 'faqconc_width_validate' );
 	register_setting( 'faqconc_settings', 'faqconc_width_override' );
-	register_setting( 'faqconc_settings', 'faqconc_colour_scheme' );	
-	register_setting( 'faqconc_settings', 'faqconc_custom_colour1', 'faqconc_custcol1_validate' );	
+	register_setting( 'faqconc_settings', 'faqconc_colour_scheme' );
+	register_setting( 'faqconc_settings', 'faqconc_custom_colour1', 'faqconc_custcol1_validate' );
 	register_setting( 'faqconc_settings', 'faqconc_custom_colour2', 'faqconc_custcol2_validate' );
-	register_setting( 'faqconc_settings', 'faqconc_negative' );	
-	register_setting( 'faqconc_settings', 'faqconc_corners' );	
-	register_setting( 'faqconc_settings', 'faqconc_indicators' );	
-	register_setting( 'faqconc_settings', 'faqconc_disable_styles' );	
-	register_setting( 'faqconc_settings', 'faqconc_order' );	
+	register_setting( 'faqconc_settings', 'faqconc_negative' );
+	register_setting( 'faqconc_settings', 'faqconc_corners' );
+	register_setting( 'faqconc_settings', 'faqconc_indicators' );
+	register_setting( 'faqconc_settings', 'faqconc_disable_styles' );
+	register_setting( 'faqconc_settings', 'faqconc_order' );
 	register_setting( 'faqconc_settings', 'faqconc_reverse' );
 
 }
 add_action( 'admin_init', 'faqconc_register_settings' );
 
 // Callback functions for speed
-function faqconc_animation_section() { 
+function faqconc_animation_section() {
 
 	$html  = '<p>' . __( 'Sets the animation effects when Answer panel is opened or closed.', 'faq-concertina' ) . '</p>';
 
@@ -363,13 +365,13 @@ function faqconc_width_validate( $input ) {
 
 	$width = get_option( 'faqconc_width' );
 
-	if ( $input < '50' || $input > '100' ) { 
+	if ( $input < '50' || $input > '100' ) {
 		add_settings_error ( 'faqconc_width', 'faqconc_width_msg', __( 'The value entered for <em>Width</em> is not valid. Enter a number between 50 and 100.', 'faq-concertina' ) );
 	} else {
 		$width = intval( $input );
 	}
 
-	return $width; 
+	return $width;
 
 }
 function faqconc_width_override() {
@@ -377,7 +379,7 @@ function faqconc_width_override() {
 	$override = get_option( 'faqconc_width_override', '1' );
 
 	$html  = '<input type="checkbox" id="faqconc_width_override" name="faqconc_width_override"  value="1" ' . checked( $override, 1, false ) .' />';
-    $html .= '<label for="faqconc_width_override"> ' . __( 'Override the width setting above on small screen devices (e.g. smartphones).', 'faq-concertina' ) . '</label>'; 
+    $html .= '<label for="faqconc_width_override"> ' . __( 'Override the width setting above on small screen devices (e.g. smartphones).', 'faq-concertina' ) . '</label>';
 
     echo $html;
 
@@ -425,14 +427,14 @@ function faqconc_custcol1_validate( $input ) {
 		add_settings_error( 'faqconc_custom_colour1', 'faqconc_custcol1_msg', __( 'Custom colour 1 cannot be empty.', 'faq-concertina' ) );
 		$custcol = get_option(  'faqconc_custom_colour1', '#3f6191' );
 	} else {
-		// check for leading # in string  
+		// check for leading # in string
 		if ( substr_compare( $input, "#", 0, 1 ) ) {
 			add_settings_error( 'faqconc_custom_colour1', 'faqconc_custcol1_msg', __( 'Custom colour 1 has no leading #.', 'faq-concertina' ) );
 			$custcol = get_option(  'faqconc_custom_colour1', '#3f6191' );
 		} else {
 			$custcol = ltrim( $input, '#' ); // trim leading #...
 			// ...and check for valid hex code and that string is exactly six characters
-			if ( !ctype_xdigit( $custcol ) || strlen( $custcol ) != 6 ) { 
+			if ( !ctype_xdigit( $custcol ) || strlen( $custcol ) != 6 ) {
 				add_settings_error( 'faqconc_custom_colour1', 'faqconc_custcol1_msg', __( 'Invalid entry for custom colour 1. Custom colours must consist of exactly six hexadecimal characters (0-9, a-f).', 'faq-concertina' ) );
 				$custcol = get_option(  'faqconc_custom_colour1', '#3f6191' );
 			} else {
@@ -459,7 +461,7 @@ function faqconc_custcol2_validate( $input ) {
 		} else {
 			$custcol = ltrim( $input, '#' ); // trim leading #...
 			// ...and check for valid hex code and that string is exactly six characters
-			if ( !ctype_xdigit( $custcol ) || strlen( $custcol ) != 6 ) { 
+			if ( !ctype_xdigit( $custcol ) || strlen( $custcol ) != 6 ) {
 				add_settings_error( 'faqconc_custom_colour2', 'faqconc_custcol2_msg', __( 'Invalid entry for custom colour 2. Custom colours must consist of exactly six hexadecimal characters (0-9, a-f).', 'faq-concertina' ) );
 				$custcol = get_option(  'faqconc_custom_colour2', '#fbf6e4' );
 			} else {
@@ -468,7 +470,7 @@ function faqconc_custcol2_validate( $input ) {
 			}
 		}
 	}
-		
+
 	return $custcol;
 
 }
@@ -477,7 +479,7 @@ function faqconc_invert_colours() {
 	$invert = get_option( 'faqconc_negative', '0' );
 
 	$html  = '<input type="checkbox" id="faqconc_negative" name="faqconc_negative"  value="1" ' . checked( 1, $invert, false ) .' />';
-    $html .= '<label for="faqconc_negative"> ' . __( 'Inverts the colour scheme (useful if your theme has a dark background).', 'faq-concertina' ) . '</label>'; 
+    $html .= '<label for="faqconc_negative"> ' . __( 'Inverts the colour scheme (useful if your theme has a dark background).', 'faq-concertina' ) . '</label>';
 
     echo $html;
 
@@ -524,7 +526,7 @@ function faqconc_disable_styles() {
 }
 
 // Callback functions for order
-function faqconc_order_section() { 
+function faqconc_order_section() {
 
 	$html  = '<p>' . __( 'Sets the order in which the FAQs are displayed.', 'faq-concertina' ) . '</p>';
 	$html .= '<p><strong>' . __( 'Alphabetical', 'faq-concertina' ) . '</strong> ' . __( 'orders the FAQs alphabetically by question.', 'faq-concertina' ) . '<br />';
@@ -564,7 +566,7 @@ function faqconc_reverse() {
 
 // Callback functions for pagination
 /*
-function faqconc_pagination_section() { 
+function faqconc_pagination_section() {
 
 	$html  = '<p>' . __( 'Pagination for long lists of FAQs coming soon in a future update.', 'faq-concertina' ) . '</p>';
 
@@ -582,7 +584,7 @@ function faqconc_settings() {
 	}
 
 	echo  '<div class="wrap">';
-		echo '<h2>' . __( 'FAQ Concertina Settings', 'faq-concertina' ) . '</h2>';	 
+		echo '<h2>' . __( 'FAQ Concertina Settings', 'faq-concertina' ) . '</h2>';
 
 		// Make a call to the WordPress function for rendering errors when settings are saved.
 	    settings_errors();
@@ -605,7 +607,7 @@ function faqconc_messages( $messages ) {
   global $post, $post_ID;
 
   $messages['faqconc'] = array(
-     0 => '', 
+     0 => '',
      1 => __( 'FAQ updated', 'faq-concertina' ) . sprintf( ' - <a target="_blank" href="%s">', esc_url( get_permalink( $post_ID ) ) ) .  __( 'View FAQ', 'faq-concertina' ) . '</a>',
      2 => __( 'Custom field updated', 'faq-concertina' ),
      3 => __( 'Custom field deleted', 'faq-concertina' ),
@@ -634,10 +636,10 @@ function faqconc_check_for_shortcode( $posts ) {
 
     if ( empty( $posts ) )
         return $posts;
- 
+
     // false because we have to search through the posts first
     $faqconc_shortcode_found = false;
- 
+
     // search through each post
     foreach ( $posts as $post ) {
         // check the post content for the shortcode
@@ -647,7 +649,7 @@ function faqconc_check_for_shortcode( $posts ) {
             // stop the search
             break;
     } // end foreach
- 
+
     if ( $faqconc_shortcode_found ){ // shortcode has been found so let's load the styles!
 
     	// load external stylesheet
@@ -660,7 +662,7 @@ function faqconc_check_for_shortcode( $posts ) {
 	    	// get width and sanitise
 	    	$faq_width = get_option( 'faqconc_width', '75' );
 			// get colour scheme and custom colours
-			$faq_colours = get_option( 'faqconc_colour_scheme', '2' ); 
+			$faq_colours = get_option( 'faqconc_colour_scheme', '2' );
 			switch ( $faq_colours ) {
 				case "1": $faq_col1 = "#000000"; $faq_col2 = "#ffffff"; break; // Black & White
 				case "2": $faq_col1 = "#666666"; $faq_col2 = "#eeeeee"; break; // Shades of Grey
@@ -671,7 +673,7 @@ function faqconc_check_for_shortcode( $posts ) {
 				case "7": $faq_col1 = "#3b9c9c"; $faq_col2 = "#ccffff"; break; // Iceberg
 				case "8": $faq_col1 = "#347235"; $faq_col2 = "#ccfb5d"; break; // Forest
 				case "9": $faq_col1 = "#e42217"; $faq_col2 = "#ffd801"; break; // Paella
-				case "0": $faq_col1 = get_option( 'faqconc_custom_colour1', '#3f6191' ); // Custom colours 
+				case "0": $faq_col1 = get_option( 'faqconc_custom_colour1', '#3f6191' ); // Custom colours
 						  $faq_col2 = get_option( 'faqconc_custom_colour2', '#fbf6e4' );
 						  break;
 				default:  $faq_col1 = "#666666"; $faq_col2 = "#eeeeee"; 		// default to Shades of Grey
@@ -680,7 +682,7 @@ function faqconc_check_for_shortcode( $posts ) {
 			if ( get_option( 'faqconc_negative' ) == "1" ) { $faq_temp = $faq_col1; $faq_col1 = $faq_col2; $faq_col2 = $faq_temp; }
 			// get corner option
 			if ( get_option( 'faqconc_corners' ) == "2" ) { $corner = "border-radius: 4px; "; } else { $corner = ""; }
-			// get indicators option	
+			// get indicators option
 			$faq_indicators = get_option( 'faqconc_indicators', '0' );
 			switch ( $faq_indicators ) {
 				case "0": $indicators = ''; break; // No indicators
@@ -690,17 +692,16 @@ function faqconc_check_for_shortcode( $posts ) {
 			}
 			// construct inline CSS
 	     	$faq_css = "
-	    			.faqconc  	 { width: " . $faq_width . "%; } 
+	    			.faqconc  	 { width: " . $faq_width . "%; }
 	    			.faq_item 	 { background: " . $faq_col2 . "; border-color: " . $faq_col1 . "; " . $corner . "}
-	    			.faq_q    	 { background: " . $faq_col1 . "; color: " . $faq_col2 . "; } 
-	    			.faq_q:focus { outline: none; box-shadow: 0px 0px 6px 4px " . $faq_col1 . "; }
+	    			.faq_q    	 { background: " . $faq_col1 . "; color: " . $faq_col2 . "; }
 	    			.faq_a    	 { color: " . $faq_col1 . "; }
 	    			" . $indicators;
 			// get width override option and add media query
 			if ( get_option( 'faqconc_width_override' ) == '1' ) {
 				$faq_css .= "
 					@media screen and (max-width: 600px) { .faqconc { width: 100%; } }
-				"; 
+				";
 			}
 			// put inline styles in <head>
     		wp_add_inline_style( 'faqconc-styles', $faq_css );
@@ -710,7 +711,7 @@ function faqconc_check_for_shortcode( $posts ) {
 
     return $posts;
 
-} 
+}
 add_action( 'the_posts', 'faqconc_check_for_shortcode' );
 
 // Create shortcode [faq-concertina] and display FAQs on page
@@ -735,7 +736,7 @@ function faqconc_show_faqs( $atts ) {
 			)
 		);
 	}
-	// check for FAQ order and add relevant ordering to query arguments ($args) 
+	// check for FAQ order and add relevant ordering to query arguments ($args)
 	$order = get_option( ' faqconc_order', '2' );
 	if ( $order == '0' ) { $args['orderby'] = 'title'; } // alphabetical order
 	// if order == 1 then chronological order (WordPress default so we do nothing here)
@@ -746,49 +747,67 @@ function faqconc_show_faqs( $atts ) {
 
 	// get the posts and store array of records in $faqs
 	$faqs = new WP_Query( $args );
-	
+
 	if ( $faqs->have_posts() ) {
 
 		// get the animation speed
 		$speed = ( get_option( 'faqconc_animation_speed' ) != '' ) ? get_option( 'faqconc_animation_speed' ) : '500';
 		$hide_others = ( get_option( 'faqconc_hide_others' ) != '' ) ? get_option( 'faqconc_hide_others' ) : '0';
-		
+
 		// enqueue script and pass animation speed to javascript file
 		wp_register_script( 'faqconc-script', plugins_url( 'js/faq-concertina-script.js', __FILE__ ), array( 'jquery' ) );
 		wp_enqueue_script( 'faqconc-script' );
 		wp_localize_script( 'faqconc-script', 'faqconcvars', array ( 'speed' => $speed, 'hideothers' => $hide_others, 'category' => $category ) );
 
 		// display the FAQs
-		$current_ver = '1_4_3';
+		$current_ver = '1_4_5';
+
+		ob_start();
+		do_action( 'faqconc_before_faqs' );
 		$faq_concertina = $category ? '<div id="faqconc_' . $current_ver . '_' . $category . '" class="faqconc ' . $category . '" role="tablist" aria-multiselectable="true">' :'<div id="faqconc_' . $current_ver . '" class="faqconc" role="tablist" aria-multiselectable="true">'; // Add category as class if it exists
- 
+
  		while ( $faqs->have_posts() ) {
 			$faqs->the_post();
 			$faqid = get_the_ID();
-			$faq_concertina .= '<div class="faq_item" id="faq' . $faqid . $category . '">';
-			$faq_concertina .= '<div class="faq_q" id="faq' . $faqid . $category . '_q" aria-selected="false" aria-expanded="false" aria-controls ="faq' . $faqid . $category . '_a" role="tab" tabindex="-1">';
-			$faq_concertina .= get_the_title();
-			$faq_concertina .= '</div>'; // .faq_q
-			$faq_concertina .= '<div class="faq_a" id="faq' . $faqid . $category . '_a" aria-labelledby="faq' . $faqid . $category . '_q" aria-hidden="true" role="tabpanel">';
-			$faq_concertina .=  wpautop( get_the_content() ); // ensure that the content is output with paragraph tags ( <p>...</p> )
-			$faq_concertina .= '</div>'; // .faq_a
-			$faq_concertina .= '</div>'; // .faq_item
+
+			$before_faq = '';
+			$before_faq = apply_filters('faqconc_before_faq', $before_faq);
+
+			$this_faq = '';
+			$this_faq .= '<div class="faq_item" id="faq' . $faqid . $category . '">';
+			$this_faq .= '<div class="faq_q" id="faq' . $faqid . $category . '_q" aria-selected="false" aria-expanded="false" aria-controls ="faq' . $faqid . $category . '_a" role="tab" tabindex="-1">';
+			$this_faq .= get_the_title();
+			$this_faq .= '</div>'; // .faq_q
+			$this_faq .= '<div class="faq_a" id="faq' . $faqid . $category . '_a" aria-labelledby="faq' . $faqid . $category . '_q" aria-hidden="true" role="tabpanel">';
+			$this_faq .=  wpautop( get_the_content() ); // ensure that the content is output with paragraph tags ( <p>...</p> )
+			$this_faq .= '</div>'; // .faq_a
+			$this_faq .= '</div>'; // .faq_item
+
+			$after_faq = '';
+			$after_faq = apply_filters('faqconc_after_faq', $after_faq);
+
+			$faq_concertina .= $before_faq;
+			$faq_concertina .= $this_faq;
+			$faq_concertina .= $after_faq;
 
 //			$faq_concertina .= '<div class="nav-previous alignleft">' . next_posts_link( 'Next page' ) . '</div>';
-//			$faq_concertina .= '<div class="nav-next alignright">' . previous_posts_link( 'Previous page' ) . '</div>'; 
+//			$faq_concertina .= '<div class="nav-next alignright">' . previous_posts_link( 'Previous page' ) . '</div>';
 		}
 		$faq_concertina .= '</div>'; // .faqconc
+
 	} else {
 		$faq_concertina = '<div id="faqconc_' . $current_ver . '" class="faqconc"><p><strong>' . __( 'Sorry, no FAQs can be found!', 'faq-concertina' ) . '</strong></p></div>';
-	} 
-	
+	}
+
 	wp_reset_postdata();
 
 	// run shortcode parser recursively
     $faq_concertina = do_shortcode( $faq_concertina );
 
-	return $faq_concertina;	
-	
+	echo $faq_concertina;
+	do_action( 'faqconc_after_faqs' );
+	return ob_get_clean();
+
 }
 add_shortcode( 'faq-concertina', 'faqconc_show_faqs' );
 ?>

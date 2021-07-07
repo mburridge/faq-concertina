@@ -1,12 +1,12 @@
 === FAQ Concertina ===
 Contributors: mburridge
 Donate link: http://www.zyriab.co.uk/faqconc/
-Tags: accessible, accordion, faq, faqs, frequently asked questions, frequently, asked, question, questions, concertina, faq concertina, faq accordion, responsive, category, categories, hidden, hidden section, hidden sections, expanding, expanding section, expanding sections, expandable, expandable section, expandable sections, css, jQuery, custom, custom post type, dashboard, admin, administration, simple, easy, free, free faq plugin, free faqs plugin, plugin, mobile friendly, shortcode, order, customise, customize, customisable, customizable, accessibility, assistive, assistive technologies, screen-reader, wai-aria, wai, web accessibility initiative, aria 
+Tags: accessible, accordion, faq, faqs, frequently asked questions, frequently, asked, question, questions, concertina, faq concertina, faq accordion, responsive, category, categories, hidden, hidden section, hidden sections, expanding, expanding section, expanding sections, expandable, expandable section, expandable sections, css, jQuery, custom, custom post type, dashboard, admin, administration, simple, easy, free, free faq plugin, free faqs plugin, plugin, mobile friendly, shortcode, order, customise, customize, customisable, customizable, accessibility, assistive, assistive technologies, screen-reader, wai-aria, wai, web accessibility initiative, aria
 Author URI: http://www.zyriab.co.uk/
 Plugin URI: http://www.zyriab.co.uk/faqconc/
 Requires at least: 3.5
-Tested up to: 4.8
-Stable tag: 1.4.3
+Tested up to: 5.4
+Stable tag: 1.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Display FAQs in an expandable concertina or accordion section. FAQs can be order
 
 == Description ==
 
-**FAQ Concertina** is a plugin for WordPress that enables you to easily display a list of FAQs *(Frequently Asked Questions)* on your page or blog post in an attractive and presentable fashion. 
+**FAQ Concertina** is a plugin for WordPress that enables you to easily display a list of FAQs *(Frequently Asked Questions)* on your page or blog post in an attractive and presentable fashion.
 
 This is achieved by using the following simple shortcode in your WordPress page or blog post:
 
@@ -34,13 +34,13 @@ With **FAQ Concertina** you can:
 
 Although primarily intended for FAQs **FAQ Concertina** is, of course, not limited to just FAQs and can be used for any content with a heading where the content is initially hidden and can be expanded by clicking on the heading. Feel free to use your imagination to come up with all kinds of creative uses for **FAQ Concertina**!
 
-= WHAT'S NEW? = 
+= WHAT'S NEW? =
 * As of version 1.4.0 **FAQ Concertina** is WAI-ARIA compliant. This means that **FAQ Concertina** is fully accessible and compatible with screen readers and other assistive technologies. Thanks to Tim Kaye [@kts915](https://profiles.wordpress.org/kts915) for contributing JavaScript code to make this possible.
 * As of version 1.3.0. an option is offered on the Settings page to choose whether one answer or many is visible at a time.
 * As of version 1.2.0 the Settings page includes *colorpicker* fields to enable you to choose a custom colour scheme.
 * As of version 1.1.2 FAQs are publicly queryable which means that FAQ content now contributes to your SEO.
 
-The **FAQ Concertina** download includes a fully illustrated 19 page manual in `.pdf` format to help you get the most from the plugin. The manual can also be downloaded from the website:
+The **FAQ Concertina** download includes a fully illustrated 20 page manual in `.pdf` format to help you get the most from the plugin. The manual can also be downloaded from the website:
 
 <http://www.zyriab.co.uk/faqconc/>
 
@@ -52,17 +52,17 @@ To install **FAQ Concertina** simply upload the `faq-concertina` directory to th
 
 Log-in to the dashboard of your WordPress website and select ‘Plugins’ from the lefthand sidebar. FAQ Concertina should appear in your list of plugins. Click on ‘Activate’ to, err..., activate it!
 
-For a simple FAQ list add this shortcode to your page or post: 
+For a simple FAQ list add this shortcode to your page or post:
 
     [faq-concertina]
 
-If you are using categories use this version of the shortcode:  
+If you are using categories use this version of the shortcode:
 
     [faq-concertina category="category-slug"]
 
 == Frequently Asked Questions ==
 
-= Will FAQ Concertina work with my theme? = 
+= Will FAQ Concertina work with my theme? =
 **FAQ Concertina** is a plugin that works independently from the theme and is theme agnostic. It will work with any theme. Just put the shortcode `[faq-concertina]` in your page or post.
 
 = My theme is responsive, will FAQ Concertina work with it? =
@@ -104,11 +104,17 @@ Although primarily intended for FAQs **FAQ Concertina** is, of course, not limit
 = Can I translate FAQ Concertina into my language? =
 FAQ content can be entered in any language. Furthermore, **FAQ Concertina** is fully internationalised *(i18n)* and a `.pot` file is provided. You can produce localised *(l10n)* `.po` and `.mo` files in your language using a translation tool such as Poedit <http://poedit.net>.
 
+= Can I (or my developer) extend FAQ Concertina? =
+Yes. As of version 1.4.4 FAQ Concertina provides hooks before and after each FAQ category and before and after each individual FAQ. Developers can extend FAQ Concertina by adding additional content or HTML at the relevant points in FAQ Concertina’s output.
+
+= I’m using WordPress in a "headless" implementation. Can I access my FAQs? =
+FAQs and FAQ Categories are available in the WordPress REST-API for consumption by client-side JavaScript in “headless” WordPress installations.
+
 = Where can I find documentation? =
-A fully illustrated 19 page .pdf manual is included with each **FAQ Concertina** download, or you can download it directly from <http://www.zyriab.co.uk/faqconc/>.
+A fully illustrated 20 page .pdf manual is included with each **FAQ Concertina** download, or you can download it directly from <http://www.zyriab.co.uk/faqconc/>.
 
 = What if I don't like FAQ Concertina? =
-If you are not happy with **FAQ Concertina** after trying it out you can deactivate it and delete it. **FAQ Concertina** plays nicely with your WordPress installation when it is deleted and cleans up after itself by removing all data and settings leaving no trace of its former existence in your WordPress database. 
+If you are not happy with **FAQ Concertina** after trying it out you can deactivate it and delete it. **FAQ Concertina** plays nicely with your WordPress installation when it is deleted and cleans up after itself by removing all data and settings leaving no trace of its former existence in your WordPress database.
 
 == Screenshots ==
 
@@ -121,6 +127,21 @@ If you are not happy with **FAQ Concertina** after trying it out you can deactiv
 7. The appearance of the FAQs in your site can be configured on the settings page.
 
 == Changelog ==
+
+= 1.4.5 = 
+JavaScript bug fix
+
+= 1.4.4 =
+Added the following developer features.
+FAQ Custom Post Type and Custom Taxonomy now show in REST-API. Usage:
+* http://example.com/wp-json/wp/v2/faqconc/
+* http://example.com/wp-json/wp/v2/faqconc_cat/
+Added Action Hooks:
+* faq_conc_before_faqs
+* faqconc_after_faqs
+Added Filter Hooks:
+* faqconc_before_faq
+* faqconc_after_faq
 
 = 1.4.3 =
 Added the category to the ID. If more than one category of FAQs is included in a single page or post HTML validators will no longer produce a Duplicate ID error.
@@ -145,7 +166,7 @@ Fixed bug that prevented links in answers from opening.
 = 1.3.0 =
 Added an option to the Settings page to hide the previously opened answer when a new answer is opened, i.e. the option to have only one answer visible at a time.
 
-= 1.2.3 = 
+= 1.2.3 =
 Minor code tweaks. Confirmed compatibility with Wordpress 4.5.
 
 = 1.2.2 =
@@ -157,22 +178,22 @@ Minor code tweaks.
 = 1.2.0 =
 Added *colorpicker* fields to Settings page for custom colour selection.
 
-= 1.1.3 = 
+= 1.1.3 =
 Fixed bugs (i) Undefined variable: faq_css (ii) Trying to get property of non-object
 
-= 1.1.2 = 
+= 1.1.2 =
 FAQs are now publicly queryable - FAQ content now counts toward SEO. Category column in list view is now sortable.
 
 = 1.1.1 =
 Fixed problem with images
 
 = 1.1 =
-Added user-requested features: 
+Added user-requested features:
  i. The option to order the FAQs alphabetically, chronologically, or numerically.
 ii. The option to add show/hide indicators to the questions.
 
 = 1.0.2 =
-Changed i18n text domain. 
+Changed i18n text domain.
 Removed extraneous duplication of files caused by SVN error.
 
 = 1.0.1 =
@@ -206,7 +227,7 @@ Fixed bug that prevented links in answers from opening.
 = 1.3.0 =
 Added an option to the Settings page to hide the previously opened answer when a new answer is opened, i.e. the option to have only one answer visible at a time.
 
-= 1.2.3 = 
+= 1.2.3 =
 Minor code tweaks. Confirmed compatibility with Wordpress 4.5.
 
 = 1.2.2 =
@@ -218,25 +239,25 @@ Minor code tweaks.
 = 1.2.0 =
 Added *colorpicker* fields to Settings page for custom colour selection.
 
-= 1.1.3 = 
+= 1.1.3 =
 Bug fixes.
 
-= 1.1.2 = 
+= 1.1.2 =
 FAQs are now publicly queryable - FAQ content now counts toward SEO. Category column in list view is now sortable.
 
 = 1.1.1 =
 The following user-requested features have been added: (i.) The option to order the FAQs alphabetically, chronologically, or numerically; (ii.) The option to add show/hide indicators to the questions. NOTE: if you have customised faq-concertina-styles.css make a backup of it before updating, otherwise it will be overwritten!
 
 = 1.1 =
-The following user-requested features have been added: 
+The following user-requested features have been added:
  i. The option to order the FAQs alphabetically, chronologically, or numerically.
 ii. The option to add show/hide indicators to the questions.
-NOTE: if you have customised faq-concertina-styles.css make a backup of it before updating, otherwise it will be overwritten! 
+NOTE: if you have customised faq-concertina-styles.css make a backup of it before updating, otherwise it will be overwritten!
 
 = 1.0.2 =
-Changed i18n text domain. 
+Changed i18n text domain.
 Removed extraneous duplication of files caused by SVN error.
-NOTE: if you have customised faq-concertina-styles.css make a backup of it before updating, otherwise it will be overwritten! 
+NOTE: if you have customised faq-concertina-styles.css make a backup of it before updating, otherwise it will be overwritten!
 
 = 1.0.1 =
 Updates to .pot file and to .pdf manual.

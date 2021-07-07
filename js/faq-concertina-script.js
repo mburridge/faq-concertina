@@ -3,12 +3,12 @@ jQuery(document).ready(function($) {
 	// Make first FAQ tabbable
 	$('.faqconc').find('.faq_q:first').attr('tabindex','0');
 
-	// Get the category 
-	var category = faqconcvars.category; 
+	// Get the category
+	var category = faqconcvars.category;
 	if (category) { category = '_'+category}
 
 	// Prevent scroll down when spacebar pressed
-	document.getElementById('faqconc_1_4_3'+category).addEventListener('keydown', function(e) {
+	document.getElementById('faqconc_1_4_5'+category).addEventListener('keydown', function(e) {
 		if ( (e.keycode || e.which) == 32) {
 			e.preventDefault();
 		}
@@ -37,13 +37,13 @@ jQuery(document).ready(function($) {
 
 				}
 
-			} else { // if hideothers not set	
+			} else { // if hideothers not set
 
 				$('#'+$(this).attr("id")+'_a').slideToggle(speed); // toggle visibility of current answer
 				$('#'+$(this).attr("id")+'_q').toggleClass("faq_is_open"); // toggle show/hide indicator of current question
-				
+
 				var ans = $('#'+$(this).attr("id")+'_q').next('.faq_a');
-				
+
 				if ( $('#'+$(this).attr("id")+'_q').hasClass("faq_is_open") ) {
 					 $('#'+$(this).attr("id")+'_q').attr('aria-expanded','true');
 					 $(ans).attr('aria-hidden','false');
@@ -51,7 +51,7 @@ jQuery(document).ready(function($) {
 				else if ( !$('#'+$(this).attr("id")+'_q').hasClass("faq_is_open") ) {
 					 $('#'+$(this).attr("id")+'_q').attr('aria-expanded','false');
 					 $(ans).attr('aria-hidden','true');
-				}					 
+				}
 
 			}
 
@@ -70,14 +70,14 @@ jQuery(document).ready(function($) {
 			if ($(this).parent('.faq_item').is('.faq_item:last')) {
 				$(this).attr('tabindex','-1'); // set this faq_q tabindex to -1
 				$(this).parent('.faq_item').siblings().first().children('.faq_q').focus().attr('tabindex','0'); // set receiving faq_q tabindex to 0
-			} else {	
+			} else {
 				$(this).attr('tabindex','-1'); // set this faq_q tabindex to -1
 				$(this).parent('.faq_item').next().children('.faq_q').focus().attr('tabindex','0'); // set receiving faq_q tabindex to 0
 			}
         }
 
         if (e.which == 37 || e.which == 38) { // 'up' or 'left' arrow pressed
-			if ($(this).parent('.faq_item').is('.faq_item:first')) {	
+			if ($(this).parent('.faq_item').is('.faq_item:first')) {
 				$(this).attr('tabindex','-1'); // set this faq_q tabindex to -1
 				$(this).parent('.faq_item').siblings().last().children('.faq_q').focus().attr('tabindex','0'); // set receiving faq_q tabindex to 0
 			} else {
@@ -87,5 +87,5 @@ jQuery(document).ready(function($) {
 		}
 
 	});
-	
+
 });
