@@ -755,12 +755,12 @@ function faqconc_show_faqs( $atts ) {
 		$hide_others = ( get_option( 'faqconc_hide_others' ) != '' ) ? get_option( 'faqconc_hide_others' ) : '0';
 
 		// enqueue script and pass animation speed to javascript file
-		wp_register_script( 'faqconc-script', plugins_url( 'js/faq-concertina-script.js', __FILE__ ), array( 'jquery' ) );
+		wp_register_script( 'faqconc-script', plugins_url( 'js/faq-concertina-script.js', __FILE__ ), array( 'jquery' ), '1_4_6' );
 		wp_enqueue_script( 'faqconc-script' );
 		wp_localize_script( 'faqconc-script', 'faqconcvars', array ( 'speed' => $speed, 'hideothers' => $hide_others, 'category' => $category ) );
 
 		// display the FAQs
-		$current_ver = '1_4_5';
+		$current_ver = '1_4_6';
 
 		ob_start();
 		do_action( 'faqconc_before_faqs' );
