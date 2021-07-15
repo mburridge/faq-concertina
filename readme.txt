@@ -5,8 +5,8 @@ Tags: accessible, accordion, faq, faqs, frequently asked questions, frequently, 
 Author URI: http://www.zyriab.co.uk/
 Plugin URI: http://www.zyriab.co.uk/faqconc/
 Requires at least: 3.5
-Tested up to: 5.4
-Stable tag: 1.4.5
+Tested up to: 5.7
+Stable tag: 1.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,10 +35,8 @@ With **FAQ Concertina** you can:
 Although primarily intended for FAQs **FAQ Concertina** is, of course, not limited to just FAQs and can be used for any content with a heading where the content is initially hidden and can be expanded by clicking on the heading. Feel free to use your imagination to come up with all kinds of creative uses for **FAQ Concertina**!
 
 = WHAT'S NEW? =
+* As of version 1.4.6 FAQs support post revisions.
 * As of version 1.4.0 **FAQ Concertina** is WAI-ARIA compliant. This means that **FAQ Concertina** is fully accessible and compatible with screen readers and other assistive technologies. Thanks to Tim Kaye [@kts915](https://profiles.wordpress.org/kts915) for contributing JavaScript code to make this possible.
-* As of version 1.3.0. an option is offered on the Settings page to choose whether one answer or many is visible at a time.
-* As of version 1.2.0 the Settings page includes *colorpicker* fields to enable you to choose a custom colour scheme.
-* As of version 1.1.2 FAQs are publicly queryable which means that FAQ content now contributes to your SEO.
 
 The **FAQ Concertina** download includes a fully illustrated 20 page manual in `.pdf` format to help you get the most from the plugin. The manual can also be downloaded from the website:
 
@@ -128,7 +126,10 @@ If you are not happy with **FAQ Concertina** after trying it out you can deactiv
 
 == Changelog ==
 
-= 1.4.5 = 
+= 1.4.6 =
+Adds support for revisions
+
+= 1.4.5 =
 JavaScript bug fix
 
 = 1.4.4 =
