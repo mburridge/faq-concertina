@@ -3,7 +3,7 @@
 Plugin Name: FAQ Concertina
 Plugin URI: http://www.zyriab.co.uk/faqconc/
 Description: FAQs displayed as an expandable concertina using shortcode [faq-concertina]. FAQs can be categorised and displayed using shortcode [faq-concertina category='category-slug']. FAQs can also be ordered and the appearance customised.
-Version: 1.4.6
+Version: 1.4.7
 Author: Michael Burridge, Zyriab Ltd.
 Author URI: http://www.zyriab.co.uk/
 Text Domain: faq-concertina
@@ -135,29 +135,29 @@ function faqconc_change_default_title( $title ){
 add_filter( 'enter_title_here', 'faqconc_change_default_title' );
 
 // Add meta boxes: Category, Order and Help
-// function faqconc_meta_boxes(){
+function faqconc_meta_boxes(){
 
-// 	// add_meta_box( 'tagsdiv-faqconc_cat', __( 'Category', 'faq-concertina' ), 	 'post_tags_meta_box', 		 'faqconc',	'normal', 	'high', array( 'taxonomy' => 'faqconc_cat' ) ); // meta box for category
-// 	// add_meta_box( 'pageparentdiv', 		 __( 'Order', 	 'faq-concertina' ), 	 'page_attributes_meta_box', 'faqconc',	'normal', 	'low' ); // meta box for order
-// 	// add_meta_box( 'faq_help', 			 __( 'Help', 	 'faq-concertina' ), 	 'faqconc_help', 			 'faqconc',	'side', 	'high' ); // meta box for help (calls faqconc_help below)
+	add_meta_box( 'tagsdiv-faqconc_cat', __( 'Category', 'faq-concertina' ), 'post_tags_meta_box', 		 	 'faqconc',	'side', 	'high', array( 'taxonomy' => 'faqconc_cat', '__block_editor_compatible_meta_box' => false, '__back_compat_meta_box' => true ) ); // meta box for category
+	add_meta_box( 'pageparentdiv', 		 	 __( 'Order', 	 'faq-concertina' ), 'page_attributes_meta_box', 'faqconc',	'normal', 'low', 	array( '__block_editor_compatible_meta_box' => false, '__back_compat_meta_box' => true ) ); // meta box for order
+	add_meta_box( 'faq_help', 			 		 __( 'Help', 	   'faq-concertina' ), 'faqconc_help', 			 			 'faqconc',	'side', 	'high', array( '__block_editor_compatible_meta_box' => false, '__back_compat_meta_box' => true )  ); // meta box for help (calls faqconc_help below)
 
-// }
-// add_action( 'add_meta_boxes_faqconc', 'faqconc_meta_boxes' );
+}
+add_action( 'add_meta_boxes_faqconc', 'faqconc_meta_boxes' );
 
 // Callback function for the help metabox
-// function faqconc_help() {
+function faqconc_help() {
 
-// 	$helptext  = '<p>' . __( 'FAQ Concertina provides an easy way for you to add FAQs to your page or blog post using the shortcode <em>[faq-concertina]</em>.', 'faq-concertina' ) . '</p>';
-// 	$helptext .= '<p>' . __( 'Enter the question in the top box.', 'faq-concertina' ) . '</p>';
-// 	$helptext .= '<p>' . __( 'Enter the answer in the editor pane. Here you can format your text, and even include links, images and lists just like in a regular post.', 'faq-concertina' ) . '</p>';
-// 	$helptext .= '<p>' . __( 'If you wish you can assign an order number to your FAQ. This will determine the order that the FAQs appear in if "Order" is set to "Numerical" in Settings.', 'faq-concertina' ) . '</p>';
-// 	$helptext .= '<p>' . __( 'To enable you to change the order it is recommended that spaces be left in the numeric sequence thus: <em>10, 20, 30, etc...</em>. In this way the order of the FAQs can be easily changed. So to make 30 the second in the sequence rather than the third simply change the order number from 30 to 15 so that it now lies between 10 and 20, thus moving 20 from being the second to being the third item in the sequence.', 'faq-concertina' ) . '</p>';
-// 	$helptext .= '<p>' . __( 'If you want to categorise your FAQs add one or more categories for the FAQ. <em>(Note that this is entirely optional and unnecessary if all you want is a single list of FAQs)</em>. You can manage your categories by selecting \'Categories\' from the \'FAQs\' menu. If you are using categories then your shortcode will look like this:<br /><em>[faq-concertina category="category-slug"]</em>.', 'faq-concertina' ) . '</p>';
-// 	$helptext .= '<p>' . __( 'Oh, and don\'t forget to click "Publish" below when you\'re done!', 'faq-concertina' ) . '</p>';
+	$helptext  = '<p>' . __( 'FAQ Concertina provides an easy way for you to add FAQs to your page or blog post using the shortcode <em>[faq-concertina]</em>.', 'faq-concertina' ) . '</p>';
+	$helptext .= '<p>' . __( 'Enter the question in the top box.', 'faq-concertina' ) . '</p>';
+	$helptext .= '<p>' . __( 'Enter the answer in the editor pane. Here you can format your text, and even include links, images and lists just like in a regular post.', 'faq-concertina' ) . '</p>';
+	$helptext .= '<p>' . __( 'If you wish you can assign an order number to your FAQ. This will determine the order that the FAQs appear in if "Order" is set to "Numerical" in Settings.', 'faq-concertina' ) . '</p>';
+	$helptext .= '<p>' . __( 'To enable you to change the order it is recommended that spaces be left in the numeric sequence thus: <em>10, 20, 30, etc...</em>. In this way the order of the FAQs can be easily changed. So to make 30 the second in the sequence rather than the third simply change the order number from 30 to 15 so that it now lies between 10 and 20, thus moving 20 from being the second to being the third item in the sequence.', 'faq-concertina' ) . '</p>';
+	$helptext .= '<p>' . __( 'If you want to categorise your FAQs add one or more categories for the FAQ. <em>(Note that this is entirely optional and unnecessary if all you want is a single list of FAQs)</em>. You can manage your categories by selecting \'Categories\' from the \'FAQs\' menu. If you are using categories then your shortcode will look like this:<br /><em>[faq-concertina category="category-slug"]</em>.', 'faq-concertina' ) . '</p>';
+	$helptext .= '<p>' . __( 'Oh, and don\'t forget to click "Publish" below when you\'re done!', 'faq-concertina' ) . '</p>';
 
-// 	echo $helptext;
+	echo $helptext;
 
-// }
+}
 
 /*-----------------------------------------
   2.2 - THE POST LISTING PAGE
@@ -755,12 +755,12 @@ function faqconc_show_faqs( $atts ) {
 		$hide_others = ( get_option( 'faqconc_hide_others' ) != '' ) ? get_option( 'faqconc_hide_others' ) : '0';
 
 		// enqueue script and pass animation speed to javascript file
-		wp_register_script( 'faqconc-script', plugins_url( 'js/faq-concertina-script.js', __FILE__ ), array( 'jquery' ), '1_4_6' );
+		wp_register_script( 'faqconc-script', plugins_url( 'js/faq-concertina-script.js', __FILE__ ), array( 'jquery' ), '1_4_7' );
 		wp_enqueue_script( 'faqconc-script' );
 		wp_localize_script( 'faqconc-script', 'faqconcvars', array ( 'speed' => $speed, 'hideothers' => $hide_others, 'category' => $category ) );
 
 		// display the FAQs
-		$current_ver = '1_4_6';
+		$current_ver = '1_4_7';
 
 		ob_start();
 		do_action( 'faqconc_before_faqs' );

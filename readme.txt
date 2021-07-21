@@ -5,8 +5,8 @@ Tags: accessible, accordion, faq, faqs, frequently asked questions, frequently, 
 Author URI: http://www.zyriab.co.uk/
 Plugin URI: http://www.zyriab.co.uk/faqconc/
 Requires at least: 3.5
-Tested up to: 5.7
-Stable tag: 1.4.6
+Tested up to: 5.8
+Stable tag: 1.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,9 @@ If you are not happy with **FAQ Concertina** after trying it out you can deactiv
 7. The appearance of the FAQs in your site can be configured on the settings page.
 
 == Changelog ==
+
+= 1.4.7 =
+Metaboxes compatible with both classic editor and block editor
 
 = 1.4.6 =
 Adds support for revisions

@@ -8,7 +8,7 @@ jQuery(document).ready(function($) {
 	if (category) { category = '_'+category}
 
 	// Prevent scroll down when spacebar pressed
-	document.getElementById('faqconc_1_4_6'+category).addEventListener('keydown', function(e) {
+	document.getElementById('faqconc_1_4_7'+category).addEventListener('keydown', function(e) {
 		if ( (e.keycode || e.which) == 32) {
 			e.preventDefault();
 		}
