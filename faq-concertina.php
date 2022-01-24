@@ -3,7 +3,7 @@
 Plugin Name: FAQ Concertina
 Plugin URI: http://www.zyriab.co.uk/faqconc/
 Description: FAQs displayed as an expandable concertina using shortcode [faq-concertina]. FAQs can be categorised and displayed using shortcode [faq-concertina category='category-slug']. FAQs can also be ordered and the appearance customised.
-Version: 1.4.7
+Version: 1.4.8
 Author: Michael Burridge, Zyriab Ltd.
 Author URI: http://www.zyriab.co.uk/
 Text Domain: faq-concertina
@@ -71,7 +71,7 @@ function faqconc_create_post_type() {
 		'public' 				=> true,
 		'show_in_nav_menus' 	=> false,
 		'menu_icon' 			=> 'dashicons-list-view',
-		'supports' 				=> array( 'title', 'editor', 'page-attributes', 'revisions' ),
+		'supports' 				=> array( 'title', 'editor', 'page-attributes', 'revisions', 'thumbnail' ),
 		'show_in_rest' 			=> true,
 	);
 
@@ -755,12 +755,12 @@ function faqconc_show_faqs( $atts ) {
 		$hide_others = ( get_option( 'faqconc_hide_others' ) != '' ) ? get_option( 'faqconc_hide_others' ) : '0';
 
 		// enqueue script and pass animation speed to javascript file
-		wp_register_script( 'faqconc-script', plugins_url( 'js/faq-concertina-script.js', __FILE__ ), array( 'jquery' ), '1_4_7' );
+		wp_register_script( 'faqconc-script', plugins_url( 'js/faq-concertina-script.js', __FILE__ ), array( 'jquery' ), '1_4_8' );
 		wp_enqueue_script( 'faqconc-script' );
 		wp_localize_script( 'faqconc-script', 'faqconcvars', array ( 'speed' => $speed, 'hideothers' => $hide_others, 'category' => $category ) );
 
 		// display the FAQs
-		$current_ver = '1_4_7';
+		$current_ver = '1_4_8';
 
 		ob_start();
 		do_action( 'faqconc_before_faqs' );
@@ -779,7 +779,10 @@ function faqconc_show_faqs( $atts ) {
 			$this_faq .= get_the_title();
 			$this_faq .= '</div>'; // .faq_q
 			$this_faq .= '<div class="faq_a" id="faq' . $faqid . $category . '_a" aria-labelledby="faq' . $faqid . $category . '_q" aria-hidden="true" role="tabpanel">';
+      $this_faq .= get_the_post_thumbnail($faqid, 'post-thumbnail', array( 'class' => 'faq_featured_image' ));
+      $this_faq .= '<div class="faq_a_content">';
 			$this_faq .=  wpautop( get_the_content() ); // ensure that the content is output with paragraph tags ( <p>...</p> )
+      $this_faq .= '</div>'; // .faq_a_content
 			$this_faq .= '</div>'; // .faq_a
 			$this_faq .= '</div>'; // .faq_item
 

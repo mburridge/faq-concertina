@@ -1,12 +1,12 @@
 === FAQ Concertina ===
 Contributors: mburridge
 Donate link: http://www.zyriab.co.uk/faqconc/
-Tags: accessible, accordion, faq, faqs, frequently asked questions, frequently, asked, question, questions, concertina, faq concertina, faq accordion, responsive, category, categories, hidden, hidden section, hidden sections, expanding, expanding section, expanding sections, expandable, expandable section, expandable sections, css, jQuery, custom, custom post type, dashboard, admin, administration, simple, easy, free, free faq plugin, free faqs plugin, plugin, mobile friendly, shortcode, order, customise, customize, customisable, customizable, accessibility, assistive, assistive technologies, screen-reader, wai-aria, wai, web accessibility initiative, aria
+Tags: accessible, accordion, faq, faqs, frequently asked questions, frequently, asked, question, questions, concertina, faq concertina, faq accordion, responsive, category, categories, hidden, hidden section, hidden sections, expanding, expanding section, expanding sections, expandable, expandable section, expandable sections, css, jQuery, custom, custom post type, dashboard, admin, administration, simple, easy, free, free faq plugin, free faqs plugin, plugin, mobile friendly, shortcode, featured image, post thumbnail, order, customise, customize, customisable, customizable, accessibility, assistive, assistive technologies, screen-reader, wai-aria, wai, web accessibility initiative, aria
 Author URI: http://www.zyriab.co.uk/
 Plugin URI: http://www.zyriab.co.uk/faqconc/
 Requires at least: 3.5
-Tested up to: 5.8
-Stable tag: 1.4.7
+Tested up to: 5.9
+Stable tag: 1.4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,7 @@ With **FAQ Concertina** you can:
 Although primarily intended for FAQs **FAQ Concertina** is, of course, not limited to just FAQs and can be used for any content with a heading where the content is initially hidden and can be expanded by clicking on the heading. Feel free to use your imagination to come up with all kinds of creative uses for **FAQ Concertina**!
 
 = WHAT'S NEW? =
+* As of version 1.4.8 FAQs can now display a featured image (also known as post thumbnail)
 * As of version 1.4.6 FAQs support post revisions.
 * As of version 1.4.0 **FAQ Concertina** is WAI-ARIA compliant. This means that **FAQ Concertina** is fully accessible and compatible with screen readers and other assistive technologies. Thanks to Tim Kaye [@kts915](https://profiles.wordpress.org/kts915) for contributing JavaScript code to make this possible.
 
@@ -102,6 +103,9 @@ Although primarily intended for FAQs **FAQ Concertina** is, of course, not limit
 = Can I translate FAQ Concertina into my language? =
 FAQ content can be entered in any language. Furthermore, **FAQ Concertina** is fully internationalised *(i18n)* and a `.pot` file is provided. You can produce localised *(l10n)* `.po` and `.mo` files in your language using a translation tool such as Poedit <http://poedit.net>.
 
+= Does FAQ Concertina support images? =
+Yes, **FAQ Concertina** supports both featured images (also known as post thumbnails) and images embedded in the content of the answers.
+
 = Can I (or my developer) extend FAQ Concertina? =
 Yes. As of version 1.4.4 FAQ Concertina provides hooks before and after each FAQ category and before and after each individual FAQ. Developers can extend FAQ Concertina by adding additional content or HTML at the relevant points in FAQ Concertina’s output.
 
@@ -125,6 +129,10 @@ If you are not happy with **FAQ Concertina** after trying it out you can deactiv
 7. The appearance of the FAQs in your site can be configured on the settings page.
 
 == Changelog ==
+
+= 1.4.8 =
+Added user requested feature: support for featured images (post thumbnails).
+Compatible with WordPress 5.9.
 
 = 1.4.7 =
 Metaboxes compatible with both classic editor and block editor
