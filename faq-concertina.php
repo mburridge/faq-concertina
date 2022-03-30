@@ -3,7 +3,7 @@
 Plugin Name: FAQ Concertina
 Plugin URI: http://www.zyriab.co.uk/faqconc/
 Description: FAQs displayed as an expandable concertina using shortcode [faq-concertina]. FAQs can be categorised and displayed using shortcode [faq-concertina category='category-slug']. FAQs can also be ordered and the appearance customised.
-Version: 1.4.8
+Version: 1.4.9
 Author: Michael Burridge, Zyriab Ltd.
 Author URI: http://www.zyriab.co.uk/
 Text Domain: faq-concertina
@@ -755,12 +755,12 @@ function faqconc_show_faqs( $atts ) {
 		$hide_others = ( get_option( 'faqconc_hide_others' ) != '' ) ? get_option( 'faqconc_hide_others' ) : '0';
 
 		// enqueue script and pass animation speed to javascript file
-		wp_register_script( 'faqconc-script', plugins_url( 'js/faq-concertina-script.js', __FILE__ ), array( 'jquery' ), '1_4_8' );
+		wp_register_script( 'faqconc-script', plugins_url( 'js/faq-concertina-script.js', __FILE__ ), array( 'jquery' ), '1_4_9' );
 		wp_enqueue_script( 'faqconc-script' );
 		wp_localize_script( 'faqconc-script', 'faqconcvars', array ( 'speed' => $speed, 'hideothers' => $hide_others, 'category' => $category ) );
 
 		// display the FAQs
-		$current_ver = '1_4_8';
+		$current_ver = '1_4_9';
 
 		ob_start();
 		do_action( 'faqconc_before_faqs' );

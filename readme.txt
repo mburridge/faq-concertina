@@ -6,7 +6,7 @@ Author URI: http://www.zyriab.co.uk/
 Plugin URI: http://www.zyriab.co.uk/faqconc/
 Requires at least: 3.5
 Tested up to: 5.9
-Stable tag: 1.4.8
+Stable tag: 1.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,6 +129,9 @@ If you are not happy with **FAQ Concertina** after trying it out you can deactiv
 7. The appearance of the FAQs in your site can be configured on the settings page.
 
 == Changelog ==
+
+= 1.4.9 =
+Fixes width issue for images in FAQ content
 
 = 1.4.8 =
 Added user requested feature: support for featured images (post thumbnails).
