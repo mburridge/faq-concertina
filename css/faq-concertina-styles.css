@@ -50,8 +50,12 @@ will OVERWRITE this file!
 	/* padding: 12px 16px; */
 	display: none;
 }
-.faq_featured_image, .faq_a_content img {
+.faq_featured_image {
   width: 100%;
+  height: auto;
+}
+.faq_a_content img {
+  width: auto;
   height: auto;
 }
 .faq_a_content {
