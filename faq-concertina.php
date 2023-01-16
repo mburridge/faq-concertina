@@ -26,7 +26,6 @@ Copyright 2016  Michael Burridge, Zyriab Ltd.  (email : faqconc@zyriab.co.uk)
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 defined( 'ABSPATH' ) or die( "Permission denied!" );
-// testing
 
 
 /*=======================================
@@ -87,7 +86,7 @@ function faqconc_create_taxonomies() {
 	 //define labels
 	 $labels = array(
 		  'name' 					=> __( 'FAQ Categories', 'taxonomy general name', 'faq-concertina' ),
-		  'singular_name' 			=> __( 'Category', 'taxonomy singular name', 'faq-concertina' ),
+		  'singular_name' 			=> __( 'FAQ Category', 'taxonomy singular name', 'faq-concertina' ),
 		  'search_items' 			=> __( 'Search Categories', 'faq-concertina' ),
 		  'all_items' 				=> __( 'All Categories', 'faq-concertina' ),
 		  'edit_item'  				=> __( 'Edit Category', 'faq-concertina' ),
@@ -112,7 +111,7 @@ function faqconc_create_taxonomies() {
 	register_taxonomy( 'faqconc_cat', 'faqconc', $args );
 
 }
-add_action( 'init', 'faqconc_create_taxonomies', 0 );
+add_action( 'init', 'faqconc_create_taxonomies' );
 
 
 /*==========================================
@@ -814,4 +813,20 @@ function faqconc_show_faqs( $atts ) {
 
 }
 add_shortcode( 'faq-concertina', 'faqconc_show_faqs' );
+
+
+
+/**
+ * Add block
+ */
+
+
+function register_block() {
+  
+  register_block_type( __DIR__ . '/build');
+  
+}
+add_action( 'init', 'register_block' );
+
+
 ?>

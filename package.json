@@ -1,0 +1,24 @@
+{
+  "name": "faq-concertina",
+  "version": "1.5.0",
+  "description": "Block implementation of FAQ Concertina",
+  "main": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "wp-scripts start --webpack-src-dir=faqconc-block",
+    "build": "wp-scripts build --webpack-src-dir=faqconc-block"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mburridge/faq-concertina.git"
+  },
+  "author": "Michael Burridge",
+  "license": "GPL-2.0-or-later",
+  "bugs": {
+    "url": "https://github.com/mburridge/faq-concertina/issues"
+  },
+  "homepage": "https://github.com/mburridge/faq-concertina#readme",
+  "dependencies": {
+    "@wordpress/scripts": "^25.1.0"
+  }
+}
